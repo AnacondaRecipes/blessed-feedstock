@@ -1,6 +1,5 @@
 {% set name = "blessed" %}
-{% set version = "1.19.1" %}
-
+{% set version = "1.20.0" %}
 
 package:
   name: {{ name|lower }}
@@ -8,39 +7,45 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 9a0d099695bf621d4680dd6c73f6ad547f6a3442fbdbe80c4b1daa1edbc492fc
+  sha256: 2cdd67f8746e048f00df47a2880f4d6acbcdb399031b604e34ba8f71d5787680
 
 build:
-  number: 2
-  script: {{ PYTHON }} -m pip install . -vv
-  noarch: python
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python
+    - wheel
+    - setuptools
   run:
-    - __{{ target_os }}
-    {% if target_os == 'win' %}
-    - jinxed >=0.5.4
-    {% endif %}
-    - python >=3.8
+    - jinxed >=1.1.0  # [win]
+    - python
     - six >=1.9.0
     - wcwidth >=0.1.4
 
 test:
+  source_files:
+    - tests
   imports:
     - blessed
   commands:
     - pip check
+    - pytest -v tests
   requires:
     - pip
+    - pytest
 
 about:
   home: https://pypi.org/project/blessed/
   summary: Easy, practical library for making terminal apps, by providing an elegant, well-documented interface to Colors, Keyboard input, and screen Positioning capabilities.
+  description: Easy, practical library for making terminal apps, by providing an elegant, well-documented interface to Colors, Keyboard input, and screen Positioning capabilities.
   license: MIT
+  license_family: MIT
   license_file: LICENSE
+  dev_url: https://github.com/jquast/blessed
+  doc_url: https://github.com/jquast/blessed
 
 extra:
   recipe-maintainers:
