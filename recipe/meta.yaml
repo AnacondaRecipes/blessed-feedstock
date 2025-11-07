@@ -26,8 +26,8 @@ requirements:
     - wcwidth >=0.1.4
 
 #AssertionError: assert 0.1948099136352539 <= 0.18')
-{% set ignore_test = "" %} # [not osx]
-{% set ignore_test = "--ignore=tests/test_sixel.py" %} # [osx]
+{% set ignore_test = "" %}
+{% set ignore_test = ignore_test + " --ignore=tests/test_sixel.py" %} # [osx]
 test:
   source_files:
     - tests
