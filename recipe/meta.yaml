@@ -1,11 +1,8 @@
 {% set name = "blessed" %}
 {% set version = "1.47.0" %}
-{% set ignore_test = "" %}
-{% set ignore_test = ignore_test + " --ignore=tests/test_sixel.py" %}  # [osx]
 
-#AssertionError: assert 0.1948099136352539 <= 0.18')
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -23,10 +20,13 @@ requirements:
     - python
     - flit-core >=3.11,<4
   run:
-    - jinxed >=1.1.0  # [win]
     - python
-    - six >=1.9.0
     - wcwidth >=0.8.1
+    - jinxed >=2.1,<3
+
+#AssertionError: assert 0.1948099136352539 <= 0.18')
+{% set ignore_test = "" %}
+{% set ignore_test = ignore_test + " --ignore=tests/test_sixel.py" %}  # [osx]
 
 test:
   source_files:
